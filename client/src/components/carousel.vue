@@ -1,33 +1,41 @@
 <template>
   <div class="carousel px-3 py-6">
-    <el-carousel :interval="5000" type="card" height="200px">
-      <el-carousel-item v-for="item in 6" :key="item">
-        <h3 class="medium" style="text-align: center;">{{ item }}</h3>
+    <el-carousel :interval="5000" type="card" arrow="always" height="300px">
+      <el-carousel-item
+        v-for="item in popularDrinks"
+        :key="item.id"
+        class="carousel__item"
+      >
+        <div
+          class="carousel__image"
+          :style="{ backgroundImage: `url(${item.thumbImg})` }"
+          @click="redirectToDrink(item.id)"
+        >
+          <div class="carousel__text">{{ item.name }}</div>
+        </div>
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
+
 export default {
-  name: "Carousel"
+  name: "Carousel",
+  created() {
+    this.getPopularCocktails();
+  },
+  computed: {
+    ...mapGetters("cocktails", ["popularDrinks"])
+  },
+  methods: {
+    ...mapActions("cocktails", ["getPopularCocktails"]),
+    redirectToDrink(drinkId) {
+      this.$router.push({ name: "drink", params: { id: drinkId } });
+    }
+  }
 };
 </script>
 
-<style>
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 200px;
-  margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
-</style>
+<style lang="scss" scoped src="./../styles/carousel.scss"></style>

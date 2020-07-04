@@ -1,0 +1,15 @@
+.carousel__item{
+  .carousel__image{
+    height:inherit;
+    margin: 0;
+    background-size:cover;
+    opacity: 1;
+  }
+  .carousel__text{
+    font-size: 24px;
+    text-align: center;
+    color:black;
+    background-color: #fff;
+    padding: 4px;
+  }
+}
