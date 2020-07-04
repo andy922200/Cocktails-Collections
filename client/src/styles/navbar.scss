@@ -1,4 +1,43 @@
-.test{
-  font-size: 32px;
-  color:green;
+@import "variables";
+@import "mobile";
+
+.navbar{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  @include mobile{
+    justify-content: center;
+  }
+}
+
+.icon{
+  color:$light-green;
+  font-size: 28px;
+  padding: 8px;
+  @include mobile{
+    width:100%;
+    display:flex;
+    justify-content: center;
+  }
+}
+
+.expansion-select{
+  display:none;
+  @include mobile{
+    display:unset;
+    color:white;
+    font-size: 20px;
+  }
+}
+
+.button-group{
+  .log-in{
+    color:#fff;
+    background-color: #B3A47F;
+    border-color: #B3A47F;
+  }
+  @include mobile{
+    display:none;
+  }
 }

@@ -1,11 +1,11 @@
 <template>
-  <el-row>
-    <el-col :span="24">
-      <div class="homePage">
+  <div class="homePage">
+    <el-row>
+      <el-col :span="24">
         <navbar />
-      </div>
-    </el-col>
-  </el-row>
+      </el-col>
+    </el-row>
+  </div>
 </template>
 
 <script>

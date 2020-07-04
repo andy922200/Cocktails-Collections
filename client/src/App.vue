@@ -1,7 +1,7 @@
 <template>
-  <div id="app" class="default-settings">
+  <div id="app" class="default-settings pa-1">
     <router-view />
   </div>
 </template>
 
-<style lang="scss" scoped src="./styles/app.scss"></style>
+<style lang="scss" src="./styles/app.scss"></style>
