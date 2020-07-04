@@ -1,0 +1,28 @@
+#for404{
+  display: flex;
+  align-items: center;
+  height: 60vh;
+  img{
+    width:100%;
+    max-width:300px;
+    max-height:300px;
+  }
+  .half-area{
+    width:50%;
+  }
+  .logo-404{
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+  }
+  .content{
+    color: #bc955c;
+    text-align: center;
+    font-size: 24px;
+    p{
+      margin: 20px 0px;
+      color: white;
+      font-size: 20px;
+    }
+  }
+}
