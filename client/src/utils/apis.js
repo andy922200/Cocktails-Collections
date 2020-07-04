@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const baseOnlineDbURL = "https://www.thecocktaildb.com/api/json/v1/1";
+const cocktailsUserId = process.env.VUE_APP_cocktailsUserId;
+
+const baseOnlineDbURL = `https://www.thecocktaildb.com/api/json/v2/${cocktailsUserId}`;
 // const baseLocalDbURL = "http://localhost:3000/api";
 
 const onlineDbRequest = axios.create({

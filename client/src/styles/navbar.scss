@@ -17,7 +17,9 @@
 }
 
 .icon{
-  color:$light-green;
+  a,a:hover,a:before{
+    color:$light-green;
+  }
   font-size: 28px;
   padding: 8px;
   @include mobile{

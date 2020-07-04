@@ -1,9 +1,11 @@
 <template>
   <div class="navbar">
     <div class="icon">
-      <i class="el-icon-cold-drink">
-        <span class="title">Cocktails Collections</span>
-      </i>
+      <router-link to="/">
+        <i class="el-icon-cold-drink">
+          <span class="title">Cocktails Collections</span>
+        </i>
+      </router-link>
     </div>
 
     <div class="expansion-select">
