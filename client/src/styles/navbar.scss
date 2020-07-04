@@ -9,6 +9,11 @@
   @include mobile{
     justify-content: center;
   }
+  .log-in{
+    color:#fff;
+    background-color: #B3A47F;
+    border-color: #B3A47F;
+  }
 }
 
 .icon{
@@ -25,18 +30,21 @@
 .expansion-select{
   display:none;
   @include mobile{
-    display:unset;
+    display: unset;
     color:white;
     font-size: 20px;
+  }
+  .expansion-select__icons{
+    width:100%;
+    display: flex;
+    justify-content: center;
+  }
+  .expansion-select__options{
+    padding: 10px;
   }
 }
 
 .button-group{
-  .log-in{
-    color:#fff;
-    background-color: #B3A47F;
-    border-color: #B3A47F;
-  }
   @include mobile{
     display:none;
   }

@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name:"ErrorPage",
+  name: "ErrorPage",
   created() {
     setTimeout(() => this.$router.push({ path: "/" }), 5000);
   }

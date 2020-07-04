@@ -12,8 +12,8 @@ const routes = [
     component: homePage
   },
   {
-    path: '*',
-    name: 'not-found',
+    path: "*",
+    name: "not-found",
     component: NotFound
   }
 ];
