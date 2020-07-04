@@ -1,19 +1,24 @@
-// import { baseOnlineDbURL } from './../../utils/helpers.js'
+import { cocktailsAPIs } from "../../utils/apis.js";
 
 const data = {
   namespaced: true,
 
   state: {
+    drinks: [],
     searchRules: {
       ingredients: null
     }
   },
 
   getters: {
+    drinks: state => state.drinks,
     searchRules: state => state.searchRules
   },
 
   mutations: {
+    setDrinks(state, data) {
+      state.drinks = data;
+    },
     setSearchRules(state, data) {
       if (data.length === 0) {
         state.searchRules = {};
@@ -28,9 +33,30 @@ const data = {
   },
 
   actions: {
-    async getCocktails() {
+    async getCocktails({ commit, getters }) {
       try {
-        console.log("start");
+        let { searchRules } = getters;
+        let ingredients = searchRules.ingredients;
+
+        let {
+          data: { drinks }
+        } = await cocktailsAPIs.getCocktails({
+          params: { s: ingredients }
+        });
+
+        commit("setDrinks", drinks);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async getARandomCocktail({ commit }) {
+      try {
+        let {
+          data: { drinks: randomDrink }
+        } = await cocktailsAPIs.getARandomCocktail();
+
+        commit("setDrinks", randomDrink);
       } catch (err) {
         console.log(err);
       }
