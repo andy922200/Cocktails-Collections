@@ -2,7 +2,7 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import homepage from "../views/homepage.vue";
 import NotFound from "../views/notFound.vue";
-import drink from "../views/drink.vue";
+import drinkInfo from "../views/drinkInfo.vue";
 
 Vue.use(VueRouter);
 
@@ -14,8 +14,8 @@ const routes = [
   },
   {
     path: "/drinks/:id",
-    name: "drink",
-    component: drink
+    name: "drinkInfo",
+    component: drinkInfo
   },
   {
     path: "*",

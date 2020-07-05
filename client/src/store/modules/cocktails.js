@@ -58,7 +58,7 @@ const data = {
         await dispatch("formatDrinksData", {
           type: "setDrinks",
           data: drinksRawData
-        })
+        });
 
         commit("setFetchingData", false);
       } catch (err) {
@@ -78,10 +78,9 @@ const data = {
         });
 
         await dispatch("formatDrinksData", {
-          type:"setDrinks",
-          data:drinkRawData
-        })
-
+          type: "setDrinks",
+          data: drinkRawData
+        });
       } catch (err) {
         console.log(err);
         commit("setFetchingData", false);
@@ -99,7 +98,7 @@ const data = {
         await dispatch("formatDrinksData", {
           type: "setDrinks",
           data: randomDrink
-        })
+        });
 
         commit("setFetchingData", false);
       } catch (err) {
@@ -119,7 +118,7 @@ const data = {
         await dispatch("formatDrinksData", {
           type: "setPopularDrinks",
           data: drinksRawData
-        })
+        });
 
         commit("setFetchingData", false);
       } catch (err) {
@@ -128,9 +127,9 @@ const data = {
       }
     },
 
-    async formatDrinksData({ commit }, dataSet){
-      try{
-        let type = dataSet.type
+    async formatDrinksData({ commit }, dataSet) {
+      try {
+        let type = dataSet.type;
 
         let formattedDrinks = dataSet.data.map(item => {
           let result = {};
@@ -171,14 +170,14 @@ const data = {
           return result;
         });
 
-        if (type === "setPopularDrinks"){
-          const resultLimit = 10
-          formattedDrinks = formattedDrinks.slice(0, resultLimit)
+        if (type === "setPopularDrinks") {
+          const resultLimit = 10;
+          formattedDrinks = formattedDrinks.slice(0, resultLimit);
         }
 
         commit(`${type}`, formattedDrinks);
-      }catch(err){
-        console.log(err)
+      } catch (err) {
+        console.log(err);
       }
     }
   }
