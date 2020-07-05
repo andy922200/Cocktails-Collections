@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import homePage from "../views/homePage.vue";
+import homePageTest from "../views/homePageTest.vue";
 import NotFound from "../views/notFound.vue";
 import drink from "../views/drink.vue";
 
@@ -10,7 +10,7 @@ const routes = [
   {
     path: "/",
     name: "homePage",
-    component: homePage
+    component: homePageTest
   },
   {
     path: "/drinks/:id",

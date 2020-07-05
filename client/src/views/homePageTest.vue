@@ -5,7 +5,7 @@
         <navbar />
       </el-col>
       <el-col :xs="24" :span="12">
-        <carousel />
+        <homepageCarousel />
       </el-col>
       <!-- <el-col :xs="24" :span="12">
         <carousel />
@@ -16,15 +16,11 @@
 
 <script>
 import navbar from "./../components/navbar";
-import carousel from "./../components/carousel";
-import { mapGetters } from "vuex";
+import homepageCarousel from "./../components/homepageCarousel";
 
 export default {
   name: "Home",
-  components: { navbar, carousel },
-  computed: {
-    ...mapGetters("cocktails", ["searchRules"])
-  }
+  components: { navbar, homepageCarousel }
 };
 </script>
 
