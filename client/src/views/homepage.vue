@@ -1,5 +1,5 @@
 <template>
-  <div class="homePage">
+  <div class="homepage">
     <el-row>
       <el-col :span="24">
         <navbar />
