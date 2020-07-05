@@ -10,10 +10,21 @@
 
 <script>
 import navbar from "./../components/navbar";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "drink",
-  components: { navbar }
+  components: { navbar },
+  created() {
+    let drinkId = this.$route.params.id;
+    this.getACocktail(drinkId);
+  },
+  computed: {
+    ...mapGetters("cocktails", ["drinks"])
+  },
+  methods:{
+    ...mapActions("cocktails", ["getACocktail"])
+  }
 };
 </script>
 

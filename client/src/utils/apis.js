@@ -17,6 +17,9 @@ export const cocktailsAPIs = {
   getCocktails: data => {
     return onlineDbRequest.get(`/search.php`, data);
   },
+  getACocktailById : data => {
+    return onlineDbRequest.get(`lookup.php`, data)
+  },
   getARandomCocktail: () => {
     return onlineDbRequest.get(`random.php`);
   },

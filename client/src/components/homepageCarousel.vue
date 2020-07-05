@@ -1,6 +1,13 @@
 <template>
   <div class="carousel px-3 py-6">
-    <el-carousel :interval="5000" type="card" arrow="always" height="300px">
+    <el-carousel
+      :interval="5000"
+      type="card"
+      arrow="always"
+      height="300px"
+      v-loading="fetchingData"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
       <el-carousel-item
         v-for="item in popularDrinks"
         :key="item.id"
@@ -22,12 +29,12 @@
 import { mapGetters, mapActions } from "vuex";
 
 export default {
-  name: "Carousel",
+  name: "homepageCarousel",
   created() {
     this.getPopularCocktails();
   },
   computed: {
-    ...mapGetters("cocktails", ["popularDrinks"])
+    ...mapGetters("cocktails", ["popularDrinks", "fetchingData"])
   },
   methods: {
     ...mapActions("cocktails", ["getPopularCocktails"]),
@@ -38,4 +45,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped src="./../styles/carousel.scss"></style>
+<style lang="scss" scoped src="./../styles/homepageCarousel.scss"></style>

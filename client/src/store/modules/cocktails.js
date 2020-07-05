@@ -8,13 +8,15 @@ const data = {
     popularDrinks: [],
     searchRules: {
       ingredients: null
-    }
+    },
+    fetchingData: false
   },
 
   getters: {
     drinks: state => state.drinks,
     popularDrinks: state => state.popularDrinks,
-    searchRules: state => state.searchRules
+    searchRules: state => state.searchRules,
+    fetchingData: state => state.fetchingData
   },
 
   mutations: {
@@ -34,48 +36,103 @@ const data = {
       }
 
       return state.searchRules;
+    },
+    setFetchingData(state, status) {
+      state.fetchingData = status;
     }
   },
 
   actions: {
-    async getCocktails({ commit, getters }) {
+    async getCocktails({ commit, getters, dispatch }) {
       try {
         let { searchRules } = getters;
         let ingredients = searchRules.ingredients;
 
+        commit("setFetchingData", true);
         let {
-          data: { drinks }
+          data: { drinksRawData }
         } = await cocktailsAPIs.getCocktails({
           params: { s: ingredients }
         });
 
-        commit("setDrinks", drinks);
+        await dispatch("formatDrinksData", {
+          type: "setDrinks",
+          data: drinksRawData
+        })
+
+        commit("setFetchingData", false);
       } catch (err) {
         console.log(err);
+        commit("setFetchingData", false);
       }
     },
 
-    async getARandomCocktail({ commit }) {
+    async getACocktail({ commit, dispatch }, drinkId) {
       try {
+        commit("setFetchingData", true);
+
+        let {
+          data: { drinks: drinkRawData }
+        } = await cocktailsAPIs.getACocktailById({
+          params: { i: drinkId }
+        });
+
+        await dispatch("formatDrinksData", {
+          type:"setDrinks",
+          data:drinkRawData
+        })
+
+      } catch (err) {
+        console.log(err);
+        commit("setFetchingData", false);
+      }
+    },
+
+    async getARandomCocktail({ commit, dispatch }) {
+      try {
+        commit("setFetchingData", true);
+
         let {
           data: { drinks: randomDrink }
         } = await cocktailsAPIs.getARandomCocktail();
 
-        commit("setDrinks", randomDrink);
+        await dispatch("formatDrinksData", {
+          type: "setDrinks",
+          data: randomDrink
+        })
+
+        commit("setFetchingData", false);
       } catch (err) {
         console.log(err);
+        commit("setFetchingData", false);
       }
     },
 
-    async getPopularCocktails({ commit }) {
+    async getPopularCocktails({ commit, dispatch }) {
       try {
+        commit("setFetchingData", true);
+
         let {
           data: { drinks: drinksRawData }
         } = await cocktailsAPIs.getPopularCocktails();
 
-        const resultLimit = 10;
+        await dispatch("formatDrinksData", {
+          type: "setPopularDrinks",
+          data: drinksRawData
+        })
 
-        let formattedDrinks = drinksRawData.map(item => {
+        commit("setFetchingData", false);
+      } catch (err) {
+        console.log(err);
+        commit("setFetchingData", false);
+      }
+    },
+
+    async formatDrinksData({ commit }, dataSet){
+      try{
+        let type = dataSet.type
+
+        let formattedDrinks = dataSet.data.map(item => {
           let result = {};
           let ingredientCount = 1;
           let stopGenerateIngredientItems = false;
@@ -114,11 +171,14 @@ const data = {
           return result;
         });
 
-        let result = formattedDrinks.slice(0, resultLimit);
+        if (type === "setPopularDrinks"){
+          const resultLimit = 10
+          formattedDrinks = formattedDrinks.slice(0, resultLimit)
+        }
 
-        commit("setPopularDrinks", result);
-      } catch (err) {
-        console.log(err);
+        commit(`${type}`, formattedDrinks);
+      }catch(err){
+        console.log(err)
       }
     }
   }
