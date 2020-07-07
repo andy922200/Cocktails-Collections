@@ -1,0 +1,39 @@
+@import "mixins";
+@import "mobile";
+
+.homepage{
+  .randomSelect{
+    display: flex;
+    flex-wrap: wrap;
+    .randomSelect__drink{
+      max-width: 300px;
+      max-height:300px;
+    }
+    .randomSelect__image{
+      @include responsive-images;
+    }
+    .randomSelect__content{
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      color:white;
+      font-size: 24px;
+      .randomSelect__title{
+        width:100%;
+        text-align: center;
+        padding: 12px 0px;
+      }
+    }
+  }
+  .twoColumns{
+    width:50%;
+    @include tablet{
+      width: 100%;
+    }
+    &.twoColumns--flex{
+      display: flex;
+      justify-content: center;
+    }
+  }
+  
+}
