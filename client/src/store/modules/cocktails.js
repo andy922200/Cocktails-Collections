@@ -1,4 +1,7 @@
-import { cocktailsAPIs } from "../../utils/apis.js";
+import {
+  cocktailsAPIs,
+  baseOnlineDbImageIngredientsURL
+} from "../../utils/apis.js";
 
 const data = {
   namespaced: true,
@@ -150,12 +153,12 @@ const data = {
           result.ingredients = [];
           while (!stopGenerateIngredientItems) {
             let set = {};
-            if (
-              item[`strIngredient${ingredientCount}`] &&
-              item[`strMeasure${ingredientCount}`]
-            ) {
-              set.name = item[`strIngredient${ingredientCount}`].trim();
-              set.measure = item[`strMeasure${ingredientCount}`].trim();
+            let ingredient = item[`strIngredient${ingredientCount}`];
+            let measure = item[`strMeasure${ingredientCount}`];
+            if (ingredient && measure) {
+              set.name = ingredient.trim();
+              set.measure = measure.trim();
+              set.thumb = `${baseOnlineDbImageIngredientsURL}/${ingredient}-small.png`;
               result.ingredients.push(set);
               ingredientCount += 1;
             } else {
@@ -173,7 +176,7 @@ const data = {
         });
 
         if (type === "setPopularDrinks") {
-          const resultLimit = 10;
+          const resultLimit = 7;
           formattedDrinks = formattedDrinks.slice(0, resultLimit);
         }
 

@@ -15,9 +15,9 @@
       <el-col :span="24">
         <div class="randomSelect">
           <div class="twoColumns twoColumns--flex">
-            <div class="randomSelect__drink">
+            <div v-loading="fetchingData" class="randomSelect__drink">
               <img
-                :src="drinks[0].thumbImg"
+                :src="drinks[0] ? drinks[0].thumbImg : ''"
                 class="randomSelect__image"
                 alt="randomDrinkImage"
               />
@@ -25,13 +25,10 @@
           </div>
           <div class="twoColumns">
             <div class="randomSelect__content">
-              <p class="randomSelect__title">{{ drinks[0].name }}</p>
-              <el-table :data="drinks[0].ingredients" border>
-                <el-table-column prop="name" label="Name">
-                </el-table-column>
-                <el-table-column prop="measure" label="Quantity">
-                </el-table-column>
-              </el-table>
+              <p class="randomSelect__title">
+                {{ drinks[0] ? drinks[0].name : "Drink Name" }}
+              </p>
+              <ingredientsTable />
             </div>
           </div>
         </div>
@@ -43,11 +40,12 @@
 <script>
 import navbar from "./../components/navbar";
 import homepageCarousel from "./../components/homepageCarousel";
+import ingredientsTable from "./../components/ingredientsTable";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "Homepage",
-  components: { navbar, homepageCarousel },
+  components: { navbar, homepageCarousel, ingredientsTable },
   created() {
     this.getARandomCocktail();
   },

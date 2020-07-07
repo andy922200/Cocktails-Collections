@@ -1,0 +1,16 @@
+@import "variables";
+@import "responsiveTable";
+
+.ingredientTable{
+  width:100%;
+  .table-fullWidth{
+    width:100%;
+  }
+  .ingredientTable__image{
+    display:block;
+    margin: 0 auto;
+    @media (max-width: 673px){
+      margin: unset;
+    }
+  }
+}

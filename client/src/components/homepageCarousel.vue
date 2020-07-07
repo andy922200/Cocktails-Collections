@@ -2,7 +2,8 @@
   <div class="carousel px-3 py-6">
     <el-carousel
       :interval="5000"
-      type="card"
+      :type="windowWidth >= 414 ? 'card' : ''"
+      indicator-position="outside"
       arrow="always"
       height="300px"
       v-loading="fetchingData"
@@ -34,6 +35,7 @@ export default {
     this.getPopularCocktails();
   },
   computed: {
+    ...mapGetters(["windowWidth"]),
     ...mapGetters("cocktails", ["popularDrinks", "fetchingData"])
   },
   methods: {
