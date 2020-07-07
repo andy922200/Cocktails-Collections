@@ -81,6 +81,8 @@ const data = {
           type: "setDrinks",
           data: drinkRawData
         });
+
+        commit("setFetchingData", false);
       } catch (err) {
         console.log(err);
         commit("setFetchingData", false);

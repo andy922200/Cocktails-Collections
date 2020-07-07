@@ -28,4 +28,10 @@ const router = new VueRouter({
   routes
 });
 
+router.afterEach(() => {
+  document
+    .querySelector("body")
+    .setAttribute("style", "background-color: #2F0900");
+});
+
 export default router;
