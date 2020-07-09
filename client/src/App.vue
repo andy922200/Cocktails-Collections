@@ -10,7 +10,7 @@ import { mapMutations } from "vuex";
 export default {
   name: "App",
   created() {
-    this.detectWindowWidth();
+    this.initialize();
     window.addEventListener("resize", this.detectWindowWidth);
   },
   destroyed() {
@@ -18,6 +18,9 @@ export default {
   },
   methods: {
     ...mapMutations(["setWindowWidth"]),
+    initialize() {
+      this.detectWindowWidth();
+    },
     detectWindowWidth() {
       this.setWindowWidth(window.innerWidth);
     }
