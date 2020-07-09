@@ -136,3 +136,4 @@ $ npm run lint
 
 ## Author
 - [Andy Lien](https://github.com/andy922200)
+- [The site icon is made by Freepik published on www.flaticon.com](https://www.flaticon.com/)
