@@ -2,8 +2,18 @@
   position:relative;
 }
 
+.display-flex-all-center{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .no-wrap{
   flex-wrap:nowrap;
+}
+
+.flex-wrap{
+  flex-wrap: wrap;
 }
 
 .strike-through{

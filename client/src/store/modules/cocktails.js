@@ -12,14 +12,20 @@ const data = {
     searchRules: {
       ingredients: null
     },
-    fetchingData: false
+    drinkTypesOptions: [],
+    ingredientsOptions: [],
+    fetchingData: false,
+    fetchingOptions: false
   },
 
   getters: {
     drinks: state => state.drinks,
     popularDrinks: state => state.popularDrinks,
     searchRules: state => state.searchRules,
-    fetchingData: state => state.fetchingData
+    drinkTypesOptions: state => state.drinkTypesOptions,
+    ingredientsOptions: state => state.ingredientsOptions,
+    fetchingData: state => state.fetchingData,
+    fetchingOptions: state => state.fetchingOptions
   },
 
   mutations: {
@@ -40,8 +46,17 @@ const data = {
 
       return state.searchRules;
     },
+    setDrinkTypesOptions(state, data) {
+      state.drinkTypesOptions = data;
+    },
+    setIngredientsOptions(state, data) {
+      state.ingredientsOptions = data;
+    },
     setFetchingData(state, status) {
       state.fetchingData = status;
+    },
+    setFetchingOptions(state, status) {
+      state.fetchingOptions = status;
     }
   },
 
@@ -132,6 +147,57 @@ const data = {
       }
     },
 
+    async getListOptions({ commit }, types) {
+      try {
+        commit("setFetchingOptions", true);
+
+        for (let i = 0; i < types.length; i++) {
+          let {
+            data: { drinks: rawData }
+          } = await cocktailsAPIs.getListOptions({
+            params: types[i]["params"]
+          });
+          let formattedData = [];
+
+          if (rawData.length > 0) {
+            formattedData = rawData.map(d => {
+              let set = {};
+
+              switch (types[i]["type"]) {
+                case "drinkTypes":
+                  set.label = d.strCategory;
+                  set.value = d.strCategory;
+                  break;
+                case "ingredients":
+                  set.label = d.strIngredient1;
+                  set.value = d.strIngredient1;
+                  break;
+              }
+
+              return set;
+            });
+            formattedData.sort((a, b) =>
+              a.label.toLowerCase() > b.label.toLowerCase() ? 1 : -1
+            );
+          }
+
+          switch (types[i]["type"]) {
+            case "drinkTypes":
+              commit("setDrinkTypesOptions", formattedData);
+              break;
+            case "ingredients":
+              commit("setIngredientsOptions", formattedData);
+              break;
+          }
+        }
+
+        commit("setFetchingOptions", false);
+      } catch (err) {
+        console.log(err);
+        commit("setFetchingOptions", false);
+      }
+    },
+
     async formatDrinksData({ commit }, dataSet) {
       try {
         let type = dataSet.type;
@@ -155,9 +221,15 @@ const data = {
             let set = {};
             let ingredient = item[`strIngredient${ingredientCount}`];
             let measure = item[`strMeasure${ingredientCount}`];
-            if (ingredient && measure) {
+            if (ingredient) {
               set.name = ingredient.trim();
-              set.measure = measure.trim();
+
+              if (measure) {
+                set.measure = measure.trim();
+              } else {
+                set.measure = "Q.S.";
+              }
+
               set.thumb = `${baseOnlineDbImageIngredientsURL}/${ingredient}-small.png`;
               result.ingredients.push(set);
               ingredientCount += 1;

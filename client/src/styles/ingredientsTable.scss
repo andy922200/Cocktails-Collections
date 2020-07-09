@@ -9,6 +9,8 @@
   .ingredientTable__image{
     display:block;
     margin: 0 auto;
+    max-width:50px;
+    max-height:50px;
     @media (max-width: 673px){
       margin: unset;
     }

@@ -25,5 +25,8 @@ export const cocktailsAPIs = {
   },
   getPopularCocktails: () => {
     return onlineDbRequest.get(`popular.php`);
+  },
+  getListOptions: data => {
+    return onlineDbRequest.get(`list.php`, data);
   }
 };

@@ -1,4 +1,5 @@
 @import "mixins";
+@import "utilities";
 @import "mobile";
 
 .homepage{
@@ -20,10 +21,15 @@
       color:white;
       font-size: 24px;
       padding:6px;
-      .randomSelect__title{
-        width:100%;
-        text-align: center;
-        padding: 12px 0px;
+    }
+    .randomSelect__title{
+      width:100%;
+      text-align: center;
+      padding: 12px 0px;
+      &.randomSelect__title--greetings{
+        font-size: 20px;
+        letter-spacing: 2px;
+        color:white;
       }
     }
   }
@@ -34,8 +40,8 @@
     }
     &.twoColumns--flex{
       display: flex;
+      flex-wrap: wrap;
       justify-content: center;
-      align-items: center;
     }
   }
 }
