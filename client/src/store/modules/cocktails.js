@@ -10,11 +10,15 @@ const data = {
     drinks: [],
     popularDrinks: [],
     searchRules: {
-      ingredients: null
+      drinkTypes: [],
+      ingredients: [],
+      keywords: []
     },
+    searchResults: [],
     drinkTypesOptions: [],
     ingredientsOptions: [],
     fetchingData: false,
+    fetchingSearchResults: false,
     fetchingOptions: false
   },
 
@@ -22,9 +26,11 @@ const data = {
     drinks: state => state.drinks,
     popularDrinks: state => state.popularDrinks,
     searchRules: state => state.searchRules,
+    searchResults: state => state.searchResults,
     drinkTypesOptions: state => state.drinkTypesOptions,
     ingredientsOptions: state => state.ingredientsOptions,
     fetchingData: state => state.fetchingData,
+    fetchingSearchResults: state => state.fetchingSearchResults,
     fetchingOptions: state => state.fetchingOptions
   },
 
@@ -37,14 +43,16 @@ const data = {
     },
     setSearchRules(state, data) {
       if (data.length === 0) {
-        state.searchRules = {};
+        state.searchRules = { drinkTypes: [], ingredients: [], keywords: [] };
       } else {
         data.forEach(d => {
-          state.searchRules[d.name] = d.value;
+          state.searchRules[d.type].push(d.value);
         });
       }
-
       return state.searchRules;
+    },
+    setSearchResults(state, data) {
+      state.searchResults = data;
     },
     setDrinkTypesOptions(state, data) {
       state.drinkTypesOptions = data;
@@ -54,6 +62,9 @@ const data = {
     },
     setFetchingData(state, status) {
       state.fetchingData = status;
+    },
+    setFetchingSearchResults(state, status) {
+      state.fetchingSearchResults = status;
     },
     setFetchingOptions(state, status) {
       state.fetchingOptions = status;
@@ -65,23 +76,50 @@ const data = {
       try {
         let { searchRules } = getters;
         let ingredients = searchRules.ingredients;
+        let drinkTypes = searchRules.drinkTypes;
+        let rawData = [];
+        commit("setFetchingSearchResults", true);
 
-        commit("setFetchingData", true);
-        let {
-          data: { drinksRawData }
-        } = await cocktailsAPIs.getCocktails({
-          params: { s: ingredients }
-        });
+        if (drinkTypes.length > 0) {
+          for (let i = 0; i < drinkTypes.length; i++) {
+            let params = { c: drinkTypes[i] };
 
-        await dispatch("formatDrinksData", {
-          type: "setDrinks",
-          data: drinksRawData
-        });
+            let {
+              data: { drinks: drinksRawData }
+            } = await cocktailsAPIs.getFilteredCocktails({
+              params
+            });
 
-        commit("setFetchingData", false);
+            rawData.push(drinksRawData);
+          }
+        }
+
+        if (ingredients.length > 0) {
+          let paramsInput = null;
+
+          for (let i = 0; i < ingredients.length; i++) {
+            paramsInput += "," + ingredients[i];
+          }
+          paramsInput = paramsInput.slice(5, paramsInput.length);
+
+          let params = { i: paramsInput };
+
+          let {
+            data: { drinks: drinksRawData }
+          } = await cocktailsAPIs.getFilteredCocktails({
+            params
+          });
+
+          rawData.push(drinksRawData);
+        }
+
+        await dispatch("formatSearchResults", rawData);
+        await dispatch("resetSearchRules");
+
+        commit("setFetchingSearchResults", false);
       } catch (err) {
         console.log(err);
-        commit("setFetchingData", false);
+        commit("setFetchingSearchResults", false);
       }
     },
 
@@ -165,10 +203,12 @@ const data = {
 
               switch (types[i]["type"]) {
                 case "drinkTypes":
+                  set.type = "drinkTypes";
                   set.label = d.strCategory;
                   set.value = d.strCategory;
                   break;
                 case "ingredients":
+                  set.type = "ingredients";
                   set.label = d.strIngredient1;
                   set.value = d.strIngredient1;
                   break;
@@ -253,6 +293,37 @@ const data = {
         }
 
         commit(`${type}`, formattedDrinks);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async formatSearchResults({ commit }, rawData) {
+      try {
+        let mergedRawData = [].concat.apply([], rawData);
+        let result = mergedRawData.map(d => {
+          let set = {};
+
+          set.id = Number(d.idDrink);
+          set.name = d.strDrink;
+          set.thumbImg = d.strDrinkThumb;
+
+          return set;
+        });
+
+        result = result.sort((a, b) =>
+          a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+        );
+
+        commit("setSearchResults", result);
+      } catch (err) {
+        console.log(err);
+      }
+    },
+
+    async resetSearchRules({ commit }) {
+      try {
+        commit("setSearchRules", []);
       } catch (err) {
         console.log(err);
       }

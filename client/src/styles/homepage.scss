@@ -10,6 +10,7 @@
     .randomSelect__drink{
       max-width: 300px;
       max-height:300px;
+      cursor: pointer;
     }
     .randomSelect__image{
       @include responsive-images;

@@ -7,7 +7,10 @@
         icon="el-icon-search"
         size="mini"
         class="search-button"
-        :disabled="fetchingOptions"
+        :disabled="
+          fetchingOptions || fetchingSearchResults || isAllSearchRulesEmpty
+        "
+        @click="validateSearchItems"
         >Search
       </el-button>
     </h3>
@@ -31,10 +34,10 @@
           placeholder="Categories"
         >
           <el-option
-            v-for="item in drinkTypesOptions"
-            :key="item.value"
+            v-for="(item, index) in drinkTypesOptions"
+            :key="index"
             :label="item.label"
-            :value="item.value"
+            :value="item"
           >
           </el-option>
         </el-select>
@@ -54,15 +57,15 @@
           placeholder="Ingredients"
         >
           <el-option
-            v-for="item in ingredientsOptions"
-            :key="item.value"
+            v-for="(item, index) in ingredientsOptions"
+            :key="index"
             :label="item.label"
-            :value="item.value"
+            :value="item"
           >
           </el-option>
         </el-select>
       </el-collapse-item>
-      <el-collapse-item title="關鍵字搜尋 Keywords" name="Keywords">
+      <el-collapse-item title="關鍵字搜尋 Keywords" name="keywords">
         <el-input
           placeholder="Please enter your keywords"
           v-model="keywords"
@@ -75,7 +78,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 
 export default {
   name: "searchBar",
@@ -97,13 +100,37 @@ export default {
   },
   computed: {
     ...mapGetters("cocktails", [
+      "searchResults",
+      "searchRules",
+      "fetchingData",
+      "fetchingSearchResults",
       "fetchingOptions",
       "drinkTypesOptions",
       "ingredientsOptions"
-    ])
+    ]),
+
+    isAllSearchRulesEmpty() {
+      return (
+        this.selectedDrinkTypes.length === 0 &&
+        this.selectedIngredients.length === 0 &&
+        !this.keywords
+      );
+    }
   },
   methods: {
-    ...mapActions("cocktails", ["getListOptions"])
+    ...mapMutations("cocktails", ["setSearchRules"]),
+    ...mapActions("cocktails", ["getCocktails", "getListOptions"]),
+
+    validateSearchItems() {
+      if (this.selectedDrinkTypes.length > 0) {
+        this.setSearchRules(this.selectedDrinkTypes);
+        this.getCocktails();
+      }
+      if (this.selectedIngredients.length > 0) {
+        this.setSearchRules(this.selectedIngredients);
+        this.getCocktails();
+      }
+    }
   },
   watch: {
     activeCollapseItems: {
@@ -116,6 +143,10 @@ export default {
           case "ingredients":
             this.selectedDrinkTypes = [];
             this.keywords = null;
+            break;
+          case "keywords":
+            this.selectedIngredients = [];
+            this.selectedDrinkTypes = [];
             break;
         }
       }
