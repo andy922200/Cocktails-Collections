@@ -121,14 +121,18 @@ export default {
     ...mapMutations("cocktails", ["setSearchRules"]),
     ...mapActions("cocktails", ["getCocktails", "getListOptions"]),
 
-    validateSearchItems() {
-      if (this.selectedDrinkTypes.length > 0) {
-        this.setSearchRules(this.selectedDrinkTypes);
-        this.getCocktails();
-      }
-      if (this.selectedIngredients.length > 0) {
-        this.setSearchRules(this.selectedIngredients);
-        this.getCocktails();
+    async validateSearchItems() {
+      try {
+        if (this.selectedDrinkTypes.length > 0) {
+          this.setSearchRules(this.selectedDrinkTypes);
+          await this.getCocktails();
+        }
+        if (this.selectedIngredients.length > 0) {
+          this.setSearchRules(this.selectedIngredients);
+          await this.getCocktails();
+        }
+      } catch (err) {
+        console.log(err);
       }
     }
   },
