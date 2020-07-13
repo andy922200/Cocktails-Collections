@@ -1,0 +1,49 @@
+@import "mixins";
+@import "mobile";
+
+.drinkInfo{
+  color:white;
+  font-size:24px;
+  .content{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    .content_info{
+      width:100%;
+      padding:12px;
+      .content_infoList{
+        padding:12px;
+        width:50%;
+        margin: 0 auto;
+        li{
+          font-size:24px;
+          margin-bottom: 12px;
+          .general-name-style{
+            margin-bottom:10px;
+            @include mobile{
+              font-size: 18px;
+            }
+          }
+          .general-value-style{
+            font-size:16px;
+            @include mobile{
+              font-size: 14px;
+            }
+          }
+        }
+        .tag{
+          margin: 0px 10px 10px 0px;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .selectedDrink{
+    max-width: 200px;
+    max-height:200px;
+    width:100%;
+  }
+  .selectedImage{
+    @include responsive-images;
+  }
+}
