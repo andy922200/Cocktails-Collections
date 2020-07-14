@@ -31,8 +31,6 @@
 3. 額外功能 (Extra Functions)
   * 使用者可以贊助表達支持 ( Donate Function )
 
-<!-- - [開發詳述過程 ＠Blog](https://smlpoints.com/build-a-public-chatroom-with-vue-mysql-socketio-passport-jwt.html) -->
-
 ## How to use
 **Website 網站**
 <p> Users can browse and search the cocktail recipes. If they registered and logged in, they can save their favorite recipes and donate to this project if they would like to.</p>
@@ -45,7 +43,7 @@
 **Front End**
 - [vue](https://vuejs.org/) - The Progressive JavaScript Framework.
 - [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
-- [sweetalert2](https://sweetalert2.github.io/) - A beautiful, responsive, customizable popup boxes
+- [Element UI](https://element.eleme.io/#/en-US) - Element, a Vue 2.0 based component library for developers, designers and product managers
 
 <!-- **Back End**
 - [cors](https://www.npmjs.com/package/cors) - To activate Cross-Origin Resource Sharing
