@@ -1,0 +1,46 @@
+@import "mixins";
+
+.searchResult{
+  .drinksCards{
+    display: flex;
+    justify-content: center;
+    color:white;
+    font-size: 24px;
+    flex-wrap: wrap;
+    .drinksCard{
+      width: 30%;
+    }
+    .pagination{
+      width:100%;
+      display: flex;
+      justify-content: center;
+      padding: 10px 0px;
+    }
+    .result-title{
+      width:100%;
+      text-align:center;
+      margin-bottom: 10px;
+    }
+    .drinksCard-wrapper{
+      padding: 10px 0px;
+      .drinksCard-title{
+        font-size:16px;
+        text-align:center;
+        margin-bottom: 10px;
+      }
+      .button-homepage{
+        display:block;
+        margin: 0 auto;
+      }
+    }
+    .image__wrapper{
+      max-width: 200px;
+      max-height:200px;
+      cursor: pointer;
+      margin: 0 auto;
+    }
+    .image{
+      @include responsive-images;
+    }
+  }
+}

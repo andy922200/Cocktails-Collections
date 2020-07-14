@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import homepage from "../views/homepage.vue";
 import NotFound from "../views/notFound.vue";
 import drinkInfo from "../views/drinkInfo.vue";
+import searchResult from "../views/searchResult.vue";
 
 Vue.use(VueRouter);
 
@@ -11,6 +12,11 @@ const routes = [
     path: "/",
     name: "homePage",
     component: homepage
+  },
+  {
+    path: "/drinks/searchResult",
+    name: "searchResult",
+    component: searchResult
   },
   {
     path: "/drinks/:id",

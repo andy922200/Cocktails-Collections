@@ -77,7 +77,9 @@ const data = {
         let { searchRules } = getters;
         let ingredients = searchRules.ingredients;
         let drinkTypes = searchRules.drinkTypes;
+        let keywords = searchRules.keywords;
         let rawData = [];
+
         commit("setFetchingSearchResults", true);
 
         if (drinkTypes.length > 0) {
@@ -107,6 +109,18 @@ const data = {
           let {
             data: { drinks: drinksRawData }
           } = await cocktailsAPIs.getFilteredCocktails({
+            params
+          });
+
+          rawData.push(drinksRawData);
+        }
+
+        if (keywords.length > 0) {
+          let params = { s: keywords[0] };
+
+          let {
+            data: { drinks: drinksRawData }
+          } = await cocktailsAPIs.getSearchedCocktails({
             params
           });
 
@@ -300,22 +314,37 @@ const data = {
 
     async formatSearchResults({ commit }, rawData) {
       try {
-        let mergedRawData = [].concat.apply([], rawData);
-        let result = mergedRawData.map(d => {
-          let set = {};
+        let result = [];
 
-          set.id = Number(d.idDrink);
-          set.name = d.strDrink;
-          set.thumbImg = d.strDrinkThumb;
+        if (rawData[0] !== "None Found") {
+          let mergedRawData = [].concat.apply([], rawData);
+          result = mergedRawData.map(d => {
+            let set = {};
 
-          return set;
-        });
+            set.id = Number(d.idDrink);
+            set.name = d.strDrink;
+            set.thumbImg = d.strDrinkThumb;
 
-        result = result.sort((a, b) =>
-          a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
-        );
+            return set;
+          });
 
-        commit("setSearchResults", result);
+          result = result.sort((a, b) =>
+            a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1
+          );
+        }
+
+        const pageSize = 20;
+        let resultWithPage = [];
+        let totalPage = Math.ceil(result.length / pageSize);
+
+        for (let i = 1; i <= totalPage; i++) {
+          let pageObject = { page: i, data: [] };
+
+          pageObject.data = result.slice((i - 1) * pageSize, i * pageSize);
+          resultWithPage.push(pageObject);
+        }
+
+        commit("setSearchResults", resultWithPage);
       } catch (err) {
         console.log(err);
       }

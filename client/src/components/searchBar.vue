@@ -87,7 +87,7 @@ export default {
       activeCollapseItems: [],
       selectedDrinkTypes: [],
       selectedIngredients: [],
-      keywords: null,
+      keywords: "",
       noMatchText: "No Data 無資料",
       loadingText: "Loading... 載入中"
     };
@@ -127,10 +127,19 @@ export default {
           this.setSearchRules(this.selectedDrinkTypes);
           await this.getCocktails();
         }
+
         if (this.selectedIngredients.length > 0) {
           this.setSearchRules(this.selectedIngredients);
           await this.getCocktails();
         }
+
+        if (this.keywords) {
+          if (this.keywords.length > 0) {
+            this.setSearchRules([{ type: "keywords", value: this.keywords }]);
+            await this.getCocktails();
+          }
+        }
+        this.$router.push({ name: "searchResult" });
       } catch (err) {
         console.log(err);
       }

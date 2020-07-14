@@ -88,34 +88,34 @@ export default {
             set.name = mapping[key];
             set.value = this.drinks[0][key];
 
-            if(set.name === 'Tags'){
-              set.value = set.value.map((d,index)=>{
-                let newObject = {}
-                newObject.label = d
+            if (set.name === "Tags") {
+              set.value = set.value.map((d, index) => {
+                let newObject = {};
+                newObject.label = d;
 
-                switch(index){
+                switch (index) {
                   case 0:
-                    newObject.type = '';
-                    break
+                    newObject.type = "";
+                    break;
                   case 1:
-                    newObject.type = 'success';
-                    break
+                    newObject.type = "success";
+                    break;
                   case 2:
-                    newObject.type = 'info';
-                    break
+                    newObject.type = "info";
+                    break;
                   case 3:
-                    newObject.type = 'warning';
-                    break
+                    newObject.type = "warning";
+                    break;
                   case 4:
-                    newObject.type = 'danger';
-                    break
+                    newObject.type = "danger";
+                    break;
                   default:
-                    newObject.type = ''
-                    break
+                    newObject.type = "";
+                    break;
                 }
 
-                return newObject
-              })
+                return newObject;
+              });
             }
 
             result.push(set);
