@@ -4,6 +4,12 @@ module.exports = {
   outputDir: path.resolve(__dirname, "../server/public"),
   devServer: {
     open: true,
-    host: "localhost"
-  }
+    // host: "localhost",
+    proxy: {
+      "/api": {
+        // target: "https://chatroom-sml.herokuapp.com/",
+        target: 'http://localhost:3000'
+      },
+    },
+  },
 };
