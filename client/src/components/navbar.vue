@@ -23,7 +23,9 @@
       </div>
 
       <div v-if="isExpansionOpen" class="expansion-select__options">
-        <el-button size="small" class="log-in" disabled>Log In</el-button>
+        <router-link :to="{ name: 'signIn' }">
+          <el-button size="small" class="log-in">Log In</el-button>
+        </router-link>
         <el-button type="primary" size="small" class="register" disabled
           >Register</el-button
         >
@@ -31,7 +33,9 @@
     </div>
 
     <div class="button-group">
-      <el-button size="medium" class="log-in" disabled>Log In</el-button>
+      <router-link :to="{ name: 'signIn' }">
+        <el-button size="medium" class="log-in">Log In</el-button>
+      </router-link>
       <el-button type="primary" size="medium" class="register" disabled
         >Register</el-button
       >

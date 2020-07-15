@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "App",
@@ -15,6 +15,9 @@ export default {
   },
   destroyed() {
     window.removeEventListener("resize", this.detectWindowWidth);
+  },
+  computed: {
+    ...mapGetters(["isValidatingUser", "isAuthenticated", "currentUser"])
   },
   methods: {
     ...mapMutations(["setWindowWidth"]),

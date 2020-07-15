@@ -2,16 +2,17 @@ import axios from "axios";
 
 const cocktailsUserId = process.env.VUE_APP_cocktailsUserId;
 const baseOnlineDbURL = `https://www.thecocktaildb.com/api/json/v2/${cocktailsUserId}`;
+const baseLocalDbURL = "http://localhost:3000/api";
+
 export const baseOnlineDbImageIngredientsURL = `https://www.thecocktaildb.com/images/ingredients`;
-// const baseLocalDbURL = "http://localhost:3000/api";
 
 const onlineDbRequest = axios.create({
   baseURL: baseOnlineDbURL
 });
 
-// const LocalDbRequest = axios.create({
-//   baseLocalDbURL
-// });
+const LocalDbRequest = axios.create({
+  baseURL: baseLocalDbURL
+});
 
 export const cocktailsAPIs = {
   getFilteredCocktails: data => {
@@ -31,5 +32,11 @@ export const cocktailsAPIs = {
   },
   getListOptions: data => {
     return onlineDbRequest.get(`list.php`, data);
+  }
+};
+
+export const usersAPI = {
+  signIn: data => {
+    return LocalDbRequest.post(`/signin`, data);
   }
 };

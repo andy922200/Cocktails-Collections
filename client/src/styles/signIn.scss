@@ -1,0 +1,18 @@
+@import "mobile";
+
+.signIn{
+  .formStyle{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+    .loginCard{
+      width:80%;
+      @include mobile{
+        width: 90%;
+      }
+    }
+    .button--logIn{
+      margin: 0px 10px 10px 0px;
+    }
+  }
+}

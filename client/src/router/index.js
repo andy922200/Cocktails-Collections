@@ -4,6 +4,7 @@ import homepage from "../views/homepage.vue";
 import NotFound from "../views/notFound.vue";
 import drinkInfo from "../views/drinkInfo.vue";
 import searchResult from "../views/searchResult.vue";
+import signIn from "../views/signIn.vue";
 
 Vue.use(VueRouter);
 
@@ -12,6 +13,11 @@ const routes = [
     path: "/",
     name: "homePage",
     component: homepage
+  },
+  {
+    path: "/signIn",
+    name: "signIn",
+    component: signIn
   },
   {
     path: "/drinks/searchResult",
