@@ -1,12 +1,12 @@
 <p align="center">
-  <a href="#">
+  <a href="https://cocktails-collections-sml.herokuapp.com/#/">
     <img src="./iconForReadme.svg" alt="CocktailsLogo" width="48" height="48">
   </a>
 </p>
 
 <h3 align="center"> Cocktails Collections </h3>
 <h3 align="center"> 雞尾酒酒譜</h3>
-<a href="#">
+<a href="https://cocktails-collections-sml.herokuapp.com/#/">
   <p align="center">Click here to the demo site</p>
 </a>
 
