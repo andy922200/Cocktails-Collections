@@ -14,6 +14,7 @@ export default new Vuex.Store({
     today: moment().format("LL"),
     isValidatingUser: false,
     isAuthenticated: false,
+    isRegistering: false,
     currentUser: {
       id: -1,
       name: "",
@@ -28,6 +29,7 @@ export default new Vuex.Store({
     windowWidth: state => state.windowWidth,
     today: state => state.today,
     isValidatingUser: state => state.isValidatingUser,
+    isRegistering: state => state.isRegistering,
     isAuthenticated: state => state.isAuthenticated,
     currentUser: state => state.currentUser,
     token: state => state.token
@@ -36,6 +38,9 @@ export default new Vuex.Store({
   mutations: {
     setWindowWidth(state, value) {
       state.windowWidth = value;
+    },
+    setIsRegistering(state, status) {
+      state.isRegistering = status;
     },
     setIsValidatingUser(state, status) {
       state.isValidatingUser = status;
@@ -81,6 +86,24 @@ export default new Vuex.Store({
       } catch (err) {
         console.log(err);
         commit("setIsValidatingUser", false);
+        return false;
+      }
+    },
+    async signUp({ commit }, registerForm) {
+      try {
+        commit("setIsRegistering", true);
+
+        let { statusText, data } = await usersAPI.signUp(registerForm);
+
+        if (statusText !== "OK" || data.status !== "success") {
+          throw new Error();
+        }
+
+        commit("setIsRegistering", false);
+        return true;
+      } catch (err) {
+        console.log(err);
+        commit("setIsRegistering", false);
         return false;
       }
     },

@@ -43,9 +43,11 @@
           @click="triggerLogOut"
           >Log Out</el-button
         >
-        <el-button type="primary" size="small" class="register" disabled
-          >Register</el-button
-        >
+        <router-link :to="{ name: 'signUp' }">
+          <el-button type="primary" size="small" class="register"
+            >Register</el-button
+          >
+        </router-link>
       </div>
     </div>
 
@@ -70,9 +72,11 @@
         @click="triggerLogOut"
         >Log Out</el-button
       >
-      <el-button type="primary" size="medium" class="register" disabled
-        >Register</el-button
-      >
+      <router-link :to="{ name: 'signUp' }">
+        <el-button type="primary" size="medium" class="register"
+          >Register</el-button
+        >
+      </router-link>
     </div>
   </div>
 </template>

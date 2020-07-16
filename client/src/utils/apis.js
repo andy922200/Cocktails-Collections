@@ -39,6 +39,9 @@ export const usersAPI = {
   signIn: data => {
     return LocalDbRequest.post(`/signin`, data);
   },
+  signUp: data => {
+    return LocalDbRequest.post(`/signUp`, data);
+  },
   getCurrentUser: () => {
     return LocalDbRequest.get(`/get_current_user`, {
       headers: { Authorization: `Bearer ${getToken()}` }

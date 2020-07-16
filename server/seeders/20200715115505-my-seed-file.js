@@ -38,11 +38,13 @@ module.exports = {
       {}
     );
 
+    const drinkId = [11000,11001,11002,11003,11004,11005,11006,11007,11008,11009,11010,11011,11012,11013,11014,11016,11019,11020,11021,11022]
+
     return queryInterface.bulkInsert(
       "Favorites",
       Array.from({ length: 20 }).map((d) => ({
         UserId: Math.floor(Math.random() * 3) + 1,
-        DrinkId: Math.floor(Math.random() * 20000) + 1,
+        DrinkId: drinkId[Math.floor(Math.random() * 19)],
         createdAt: new Date(),
         updatedAt: new Date(),
       })),

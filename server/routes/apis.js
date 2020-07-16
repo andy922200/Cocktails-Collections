@@ -20,7 +20,7 @@ const authenticatedAdmin = (req, res, next) => {
 // register, logIn, token validation
 router.get(`/get_current_user`, authenticated, userController.getCurrentUser)
 router.post("/signin", userController.signIn);
-
+router.post("/signUp", userController.signUp);
 
 
 module.exports = router;

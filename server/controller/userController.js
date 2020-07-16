@@ -42,36 +42,38 @@ let userController = {
     });
   },
   signUp: (req, res) => {
-    // if (req.body.password !== req.body.passwordCheck) {
-    //   return res.json({
-    //     status: "error",
-    //     message: "Two Passwords do not match!",
-    //   });
-    // }
-    // User.findOne({ where: { email: req.body.email } }).then((user) => {
-    //   if (user) {
-    //     return res.json({
-    //       status: "error",
-    //       message: "The email has already used!",
-    //     });
-    //   } else {
-    //     User.create({
-    //       name: req.body.name,
-    //       email: req.body.email,
-    //       password: bcrypt.hashSync(
-    //         req.body.password,
-    //         bcrypt.genSaltSync(10),
-    //         null
-    //       ),
-    //       isAdmin: 0,
-    //     }).then((user) => {
-    //       return res.json({
-    //         status: "success",
-    //         message: "Register successfully!",
-    //       });
-    //     });
-    //   }
-    // });
+    console.log('reqBody',req.body)
+    if (req.body.password !== req.body.passwordCheck) {
+      return res.json({
+        status: "error",
+        message: "Two Passwords do not match!",
+      });
+    }
+    User.findOne({ where: { email: req.body.email } }).then((user) => {
+      if (user) {
+        return res.json({
+          status: "error",
+          message: "The email has already used!",
+        });
+      } else {
+        User.create({
+          name: req.body.name,
+          email: req.body.email,
+          password: bcrypt.hashSync(
+            req.body.password,
+            bcrypt.genSaltSync(10),
+            null
+          ),
+          role: 0,
+          isSponsor:0
+        }).then((user) => {
+          return res.json({
+            status: "success",
+            message: "Register successfully!",
+          });
+        });
+      }
+    });
   },
   getCurrentUser: (req, res) => {
     // req.user is returned by passport-jwt
