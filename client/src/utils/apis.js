@@ -2,7 +2,8 @@ import axios from "axios";
 
 const cocktailsUserId = process.env.VUE_APP_cocktailsUserId;
 const baseOnlineDbURL = `https://www.thecocktaildb.com/api/json/v2/${cocktailsUserId}`;
-const baseLocalDbURL = "http://localhost:3000/api";
+// const baseLocalDbURL = "http://localhost:3000/api";
+const baseLocalDbURL = "https://cocktails-collections-sml.herokuapp.com/api";
 export const baseOnlineDbImageIngredientsURL = `https://www.thecocktaildb.com/images/ingredients`;
 const getToken = () => localStorage.getItem("token");
 
