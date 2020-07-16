@@ -42,7 +42,6 @@ let userController = {
     });
   },
   signUp: (req, res) => {
-    console.log('reqBody',req.body)
     if (req.body.password !== req.body.passwordCheck) {
       return res.json({
         status: "error",
