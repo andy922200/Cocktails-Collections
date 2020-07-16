@@ -23,9 +23,26 @@
       </div>
 
       <div v-if="isExpansionOpen" class="expansion-select__options">
-        <router-link :to="{ name: 'signIn' }">
-          <el-button size="small" class="log-in">Log In</el-button>
+        <router-link
+          :to="{ name: 'userFavoriteDrinks' }"
+          v-if="isAuthenticated"
+        >
+          <el-button size="small" type="success" class="log-in-favorite"
+            >Your Favorite</el-button
+          >
         </router-link>
+        <router-link :to="{ name: 'signIn' }" v-if="!isAuthenticated">
+          <el-button size="small" class="log-in-favorite log-in-favorite--brown"
+            >Log In</el-button
+          >
+        </router-link>
+        <el-button
+          size="small"
+          class="log-in-favorite log-in-favorite--brown"
+          v-else
+          @click="triggerLogOut"
+          >Log Out</el-button
+        >
         <el-button type="primary" size="small" class="register" disabled
           >Register</el-button
         >
@@ -33,9 +50,26 @@
     </div>
 
     <div class="button-group">
-      <router-link :to="{ name: 'signIn' }">
-        <el-button size="medium" class="log-in">Log In</el-button>
+      <router-link
+        :to="{ name: 'userFavoriteDrinks', params: { userId: currentUser.id } }"
+        v-if="isAuthenticated"
+      >
+        <el-button size="medium" type="success" class="log-in-favorite"
+          >Your Favorite</el-button
+        >
       </router-link>
+      <router-link :to="{ name: 'signIn' }" v-if="!isAuthenticated">
+        <el-button size="medium" class="log-in-favorite log-in-favorite--brown"
+          >Log In</el-button
+        >
+      </router-link>
+      <el-button
+        size="medium"
+        class="log-in-favorite log-in-favorite--brown"
+        v-else
+        @click="triggerLogOut"
+        >Log Out</el-button
+      >
       <el-button type="primary" size="medium" class="register" disabled
         >Register</el-button
       >
@@ -44,6 +78,9 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from "vuex";
+import { Toast } from "./../utils/mixin";
+
 export default {
   name: "navbar",
   data() {
@@ -51,9 +88,27 @@ export default {
       isExpansionOpen: false
     };
   },
+  computed: {
+    ...mapGetters(["isAuthenticated", "currentUser"])
+  },
   methods: {
+    ...mapMutations(["revokeAuthentication"]),
     triggerExpansion(status) {
       status ? (this.isExpansionOpen = true) : (this.isExpansionOpen = false);
+    },
+    async triggerLogOut() {
+      try {
+        this.revokeAuthentication();
+        if (this.$route.name !== "homePage") {
+          this.$router.push({ name: "homePage" });
+        }
+        Toast.fire({
+          icon: "success",
+          title: "Log Out Successfully!"
+        });
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 };

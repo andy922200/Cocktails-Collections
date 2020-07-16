@@ -21,7 +21,7 @@ export default new Vuex.Store({
       role: -1,
       isSponsor: false
     },
-    token:''
+    token: ""
   },
 
   getters: {
@@ -55,10 +55,10 @@ export default new Vuex.Store({
         email: "",
         role: -1,
         isSponsor: false
-      }
-      state.isAuthenticated = false
-      state.token = ''
-      localStorage.removeItem('token')
+      };
+      state.isAuthenticated = false;
+      state.token = "";
+      localStorage.removeItem("token");
     }
   },
 
@@ -83,27 +83,26 @@ export default new Vuex.Store({
         commit("setIsValidatingUser", false);
         return false;
       }
+    },
+    async fetchCurrentUser({ commit }) {
+      try {
+        const { data, statusText } = await usersAPI.getCurrentUser();
+
+        if (statusText !== "OK") {
+          throw new Error(statusText);
+        }
+
+        // change the state by commit and the response
+        localStorage.setItem("token", data.token);
+        commit("setCurrentUser", data.user);
+
+        return true;
+      } catch (err) {
+        console.log(err);
+        commit("revokeAuthentication");
+        return false;
+      }
     }
-    // async fetchCurrentUser({ commit }) {
-    //   try {
-    //     const { data, statusText } = await usersAPI.getCurrentUser();
-    //     if (statusText !== "OK") {
-    //       throw new Error(statusText);
-    //     }
-    //     // change the state by commit and the response
-    //     commit("setCurrentUser", {
-    //       id: data.user.id,
-    //       name: data.user.name,
-    //       email: data.user.email,
-    //       isAdmin: data.user.isAdmin,
-    //     });
-    //     return true;
-    //   } catch (err) {
-    //     console.log("error", err);
-    //     commit("revokeAuthentication");
-    //     return false;
-    //   }
-    // },
   },
 
   modules: {

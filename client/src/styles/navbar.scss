@@ -9,16 +9,18 @@
   @include mobile{
     justify-content: center;
   }
-  .log-in{
+  .log-in-favorite{
     color:#fff;
-    background-color: #B3A47F;
-    border-color: #B3A47F;
     margin: 0px 8px;
-    &:hover,
-    &.is-disabled{
-      color:white;
-      background-color: #f1dda8;
-      border-color: #f1dda8;
+    &.log-in-favorite--brown{
+      background-color: #B3A47F;
+      border-color: #B3A47F;
+      &:hover,
+      &.is-disabled{
+        color:white;
+        background-color: #f1dda8;
+        border-color: #f1dda8;
+      }
     }
   }
 }

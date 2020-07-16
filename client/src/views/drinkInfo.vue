@@ -54,7 +54,7 @@ export default {
   name: "drinkInfo",
   components: { navbar, ingredientsTable },
   created() {
-    let drinkId = this.$route.params.id;
+    let drinkId = this.$route.params.drinkId;
     this.getACocktail(drinkId);
   },
   destroyed() {

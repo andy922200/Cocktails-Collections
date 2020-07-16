@@ -86,7 +86,7 @@ export default {
   methods: {
     ...mapMutations("cocktails", ["setSearchResults"]),
     redirectToDrink(drinkId) {
-      this.$router.push({ name: "drinkInfo", params: { id: drinkId } });
+      this.$router.push({ name: "drinkInfo", params: { drinkId: drinkId } });
     },
     handleCurrentChange(page) {
       this.currentPageNumber = page;

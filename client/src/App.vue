@@ -17,7 +17,12 @@ export default {
     window.removeEventListener("resize", this.detectWindowWidth);
   },
   computed: {
-    ...mapGetters(["isValidatingUser", "isAuthenticated", "currentUser"])
+    ...mapGetters([
+      "isValidatingUser",
+      "isAuthenticated",
+      "currentUser",
+      "token"
+    ])
   },
   methods: {
     ...mapMutations(["setWindowWidth"]),

@@ -72,7 +72,7 @@ export default {
   methods: {
     ...mapActions("cocktails", ["getARandomCocktail"]),
     redirectToDrink(drinkId) {
-      this.$router.push({ name: "drinkInfo", params: { id: drinkId } });
+      this.$router.push({ name: "drinkInfo", params: { drinkId: drinkId } });
     }
   }
 };

@@ -41,7 +41,7 @@ export default {
   methods: {
     ...mapActions("cocktails", ["getPopularCocktails"]),
     redirectToDrink(drinkId) {
-      this.$router.push({ name: "drinkInfo", params: { id: drinkId } });
+      this.$router.push({ name: "drinkInfo", params: { drinkId: drinkId } });
     }
   }
 };

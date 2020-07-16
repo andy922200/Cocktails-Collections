@@ -5,6 +5,8 @@ import NotFound from "../views/notFound.vue";
 import drinkInfo from "../views/drinkInfo.vue";
 import searchResult from "../views/searchResult.vue";
 import signIn from "../views/signIn.vue";
+import userFavoriteDrinks from "../views/userFavoriteDrinks.vue";
+import store from "../store";
 
 Vue.use(VueRouter);
 
@@ -25,7 +27,12 @@ const routes = [
     component: searchResult
   },
   {
-    path: "/drinks/:id",
+    path: "/user/:userId/favoriteDrinks",
+    name: "userFavoriteDrinks",
+    component: userFavoriteDrinks
+  },
+  {
+    path: "/drinks/:drinkId",
     name: "drinkInfo",
     component: drinkInfo
   },
@@ -38,6 +45,23 @@ const routes = [
 
 const router = new VueRouter({
   routes
+});
+
+router.beforeEach(async (to, from, next) => {
+  const tokenInStore = store.state.token;
+  const tokenInLocalStorage = localStorage.getItem("token");
+  let isAuthenticated = store.state.isAuthenticated;
+  // compare the difference between the local and the store
+  // if true, fetchCurrentUser
+  if (tokenInLocalStorage && tokenInLocalStorage !== tokenInStore) {
+    isAuthenticated = await store.dispatch("fetchCurrentUser");
+  }
+
+  if (!isAuthenticated && to.name === "userFavoriteDrinks") {
+    next("signIn");
+    return;
+  }
+  next();
 });
 
 router.afterEach(() => {

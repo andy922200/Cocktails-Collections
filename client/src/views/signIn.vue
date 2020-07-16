@@ -11,8 +11,8 @@
             <el-input type="password" v-model="form.password"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button 
-              type="primary" 
+            <el-button
+              type="primary"
               class="button--logIn"
               @click="submitLogInForm"
               >Submit 登入
@@ -48,8 +48,8 @@ export default {
   },
   methods: {
     ...mapActions(["signIn"]),
-    async validation(){
-      const emailRule = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
+    async validation() {
+      const emailRule = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/gim;
 
       if (!this.form.email || !this.form.password) {
         Toast.fire({
@@ -59,21 +59,21 @@ export default {
         return false;
       }
 
-      if(!this.form.email.match(emailRule)){
+      if (!this.form.email.match(emailRule)) {
         Toast.fire({
           icon: "warning",
           title: "Please check your email format."
         });
         return false;
       }
-      
-      return true
+
+      return true;
     },
     async submitLogInForm() {
       try {
         let validationFormResult = await this.validation();
 
-        if(validationFormResult){
+        if (validationFormResult) {
           let fetchingStatus = await this.signIn(this.form);
 
           if (fetchingStatus) {
