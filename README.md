@@ -21,16 +21,16 @@
 <p>使用 <a href="https://www.thecocktaildb.com/"> The Cocktail DB</a> 資料庫的雞尾酒資料為基礎，打造一個可以讓使用者以手機和電腦進行以下功能的應用程式</p>
 
 1. 基本功能 (Basic Functions)
-  * 使用者用「名稱」關鍵字搜尋酒譜 ( Search cocktails by name)
-  * 使用者用「材料」關鍵字搜尋酒譜 ( Search cocktails by ingredients)
-  * 當使用者不曉得今天要喝什麼時，可以點選「隨機來一杯」按鈕獲取靈感 ( Click for a random drink)
+  - [x] 使用者用「名稱」關鍵字搜尋酒譜 ( Search cocktails by name)
+  - [x] 使用者用「材料」關鍵字搜尋酒譜 ( Search cocktails by ingredients)
+  - [x] 當使用者不曉得今天要喝什麼時，可以點選「隨機來一杯」按鈕獲取靈感 ( Click for a random drink)
 2. 進階功能 (Advanced Functions)
-  * 使用者可以註冊 ( Register )
-  * 使用者可以登入 ( Log-in )
-  * 使用者可以收藏酒譜 ( My Favorite Recipes )
+  - [x] 使用者可以註冊 ( Register )
+  - [x] 使用者可以登入 ( Log-in )
+  - [ ] 使用者可以收藏酒譜 ( My Favorite Recipes )
 3. 額外功能 (Extra Functions)
-  * 使用者可以贊助表達支持 ( Donate Function )
-
+  - [ ] 使用者可以贊助表達支持 ( Donate Function )
+  
 ## How to use
 **Website 網站**
 <p> Users can browse and search the cocktail recipes. If they registered and logged in, they can save their favorite recipes and donate to this project if they would like to.</p>
@@ -43,6 +43,7 @@
 **Front End**
 - [vue](https://vuejs.org/) - The Progressive JavaScript Framework.
 - [axios](https://github.com/axios/axios) - Promise based HTTP client for the browser and node.js
+- [sweetalert2](https://sweetalert2.github.io/) - A beautiful, responsive, customizable popup boxes
 - [Element UI](https://element.eleme.io/#/en-US) - Element, a Vue 2.0 based component library for developers, designers and product managers
 
 <!-- **Back End**
