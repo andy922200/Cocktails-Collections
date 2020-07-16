@@ -16,12 +16,11 @@
     "operatorsAliases": "Sequelize.Op"
   },
   "production": {
-    "use_env_variable": "JAWSDB_URL",
+    "use_env_variable": "DATABASE_URL",
+    "dialect": "postgres",
+    "protocol": "postgres",
     "dialectOptions": {
-      "ssl": {
-        "rejectUnauthorized": false,
-        "minVersion": "TLSv1"
-      }
+      "ssl": true
     }
   }
 }
