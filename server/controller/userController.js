@@ -1,7 +1,7 @@
 const db = require('../models');
 const User = db.User;
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 let userController = {
   signIn: (req, res) => {
