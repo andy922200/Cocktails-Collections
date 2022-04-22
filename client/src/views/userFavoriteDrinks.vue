@@ -1,18 +1,21 @@
 <template>
-  <div class="userFavoriteDrinks">
-    <navbar />
-    <h3 style="color:white;">UserFavoriteDrinks</h3>
-    <h3 style="color:white;">Waiting for Editing......</h3>
-  </div>
+    <div class="userFavoriteDrinks">
+        <navbar />
+        <h3 style="color: #fff;">UserFavoriteDrinks</h3>
+        <h3 style="color: #fff;">Waiting for Editing......</h3>
+    </div>
 </template>
 
-<script>
-import navbar from "./../components/navbar";
+<script lang="ts">
+import {
+    defineComponent
+} from 'vue'
+import navbar from './../components/navbar.vue'
 
-export default {
-  name: "userFavoriteDrinks",
-  components: { navbar }
-};
+export default defineComponent({
+    name: 'userFavoriteDrinks',
+    components: {
+        navbar
+    }
+})
 </script>
-
-<style></style>
