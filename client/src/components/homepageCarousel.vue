@@ -1,29 +1,38 @@
 <template>
     <div class="carousel px-3 py-6">
-        <el-carousel
-            :interval="5000"
-            :initial-index="1"
-            :type="windowWidth >= 414 ? 'card' : ''"
-            indicator-position="outside"
-            arrow="always"
-            height="300px"
-            v-loading="fetchingData"
-            element-loading-background="rgba(0, 0, 0, 0.8)"
-        >
-            <el-carousel-item
-                v-for="item in popularDrinks"
-                :key="item.id"
-                class="carousel__item"
+        <template v-if="popularDrinks.length < 1">
+            <div
+                class="loading"
+                v-loading="fetchingData"
+                element-loading-background="rgba(0, 0, 0, 0.8)"
             >
-                <div
-                    class="carousel__image"
-                    :style="{ backgroundImage: `url(${item.thumbImg})` }"
-                    @click="redirectToDrink(item.id)"
+            </div>
+        </template>
+        <template v-else>
+            <el-carousel
+                :initial-index="0"
+                :type="windowWidth >= 414 ? 'card' : ''"
+                indicator-position="outside"
+                arrow="always"
+                height="300px"
+            >
+                <el-carousel-item
+                    v-for="item in popularDrinks"
+                    :key="item.id"
+                    :name="item.id.toString()"
+                    class="carousel__item"
                 >
-                    <div class="carousel__text">{{ item.name }}</div>
-                </div>
-            </el-carousel-item>
-        </el-carousel>
+                    <div
+                        class="carousel__image"
+                        :style="{ backgroundImage: `url(${item.thumbImg})` }"
+                        @click="redirectToDrink(item.id)"
+                    >
+                        <div class="carousel__text">{{ item.name }}</div>
+                    </div>
+                </el-carousel-item>
+            </el-carousel>
+        </template>
+
     </div>
 </template>
 
